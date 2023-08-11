@@ -18,4 +18,12 @@ const getAllOrders = async (): Promise<unknown> => {
   return OrderWithProducts;
 };
 
-export default { getAllOrders };
+const createOrder = async (userId: number, productIds: number[]): Promise<unknown> => {
+  const newOrder = await OrderModel.create({ userId });
+  const updateProducts = productIds.map((productId) => ProductModel.update({ 
+    orderId: newOrder.dataValues.id }, { where: { id: productId } }));
+  await Promise.all(updateProducts);
+  return { userId, productIds };
+};
+
+export default { getAllOrders, createOrder };
