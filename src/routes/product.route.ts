@@ -1,5 +1,7 @@
-const productRouter = require('express').Router();
-import productController from "../controllers/product.controller";
+import express from 'express';
+import productController from '../controllers/product.controller';
+
+const productRouter = express.Router();
 
 productRouter.post('/', productController.createProduct);
 
